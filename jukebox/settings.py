@@ -20,6 +20,12 @@ ROOT_DIR=environ.Path(__file__)-2
 
 APPS_DIR=ROOT_DIR.path('jukebox_core')
 
+env = environ.Env()
+
+env_file = str(ROOT_DIR.path('.env'))
+env.read_env(env_file)
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -46,9 +52,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'crispy_forms',
+    'rest_framework',
     'jukebox_core.users',
     'jukebox_core.pages',
     'jukebox_core.votingapp',
+    'jukebox_core.slack_events',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +156,11 @@ LOGOUT_REDIRECT_URL = 'home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 ADMIN_URL = r'^admin/'
+
+# SLACK API Configurations
+# ----------------------------------------------
+# use your keys 
+SLACK_CLIENT_ID = env('SLACK_CLIENT_ID')
+SLACK_CLIENT_SECRET = env('SLACK_CLIENT_SECRET')
+SLACK_VERIFICATION_TOKEN = env('SLACK_VERIFICATION_TOKEN')
+SLACK_BOT_USER_TOKEN = env('SLACK_BOT_USER_TOKEN')

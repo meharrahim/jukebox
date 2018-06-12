@@ -3,3 +3,6 @@ django-bootstrap4==0.0.6
 django-crispy-forms==1.7.2
 django-environ==0.4.4
 requests==2.19.0
+slackclient==1.2.1
+slackeventsapi==1.1.0
+djangorestframework==3.8.2
