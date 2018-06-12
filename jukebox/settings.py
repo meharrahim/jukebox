@@ -35,7 +35,7 @@ SECRET_KEY = '0vuo!d_#9j@m(h#5zfr^@zhlso!j*330w_)*^xw(5qlvfse$!8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # This line says tells Django that the user auth model to use is in our users app and called CustomUser.

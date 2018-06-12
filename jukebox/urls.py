@@ -18,6 +18,8 @@ from django.conf import settings
 from django.urls import path, include
 from django.conf.urls import url
 from django.views.generic.base import TemplateView
+from jukebox_core.slack_events.views import Events                                    #
+
 urlpatterns = [
     path('', include('jukebox_core.pages.urls')),
     # path('admin/', admin.site.urls),
@@ -25,4 +27,6 @@ urlpatterns = [
     path('users/', include('jukebox_core.users.urls')),
     path('users/', include('django.contrib.auth.urls')),
     url(r'^votingapp/', include('jukebox_core.votingapp.urls')),
+    url(r'^events/', Events.as_view()),                            #
+
 ]
