@@ -11,10 +11,14 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+ROOT_DIR=environ.Path(__file__)-2
+
+APPS_DIR=ROOT_DIR.path('jukebox_core')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -34,16 +38,17 @@ AUTH_USER_MODEL = 'users.CustomUser'
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.admin',
     'crispy_forms',
-    'users',
-    'pages',
-    'votingapp',
+    'jukebox_core.users',
+    'jukebox_core.pages',
+    'jukebox_core.votingapp',
 ]
 
 MIDDLEWARE = [
@@ -56,14 +61,24 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+MIGRATION_MODULES = {
+    'sites' : 'jukebox_core.contrib.migrations'
+}
+
 ROOT_URLCONF = 'jukebox.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],        
-        'APP_DIRS': True,
+        'DIRS': [
+            str(APPS_DIR.path('templates'))
+            ],        
+        # 'APP_DIRS': True,
         'OPTIONS': {
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader'
+            ],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -83,7 +98,7 @@ WSGI_APPLICATION = 'jukebox.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME':  os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -131,3 +146,5 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+ADMIN_URL = r'^admin/'

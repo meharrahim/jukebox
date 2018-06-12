@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load url_converter %}
+{% block title %}Vote{% endblock %}
+{% block content %}
+
+    <h3>Vote For Your Favourite Song</h3>
+    <p>
+        {% if error_msg %}<em>{{ error_msg }}</em><br>{% endif %}
+        {% if songs.all %}
+            The following choices are available:
+                <form action = "vote" method="post">
+                    {% csrf_token %}
+                        {% for choice in songs.all %}
+                            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                            {{ choice.YoutubeLink|youtube_embed_url|safe }}<br>
+                        {% endfor %}
+                    <br><input type="submit" value="Vote">
+                </form>
+        {% else %}
+            There are no choices to display.
+        {% endif %}    
+    </p>
+
+{% endblock %}
+
+

@@ -14,13 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
 from django.urls import path, include
-from django.conf.urls import url, include
+from django.conf.urls import url
 from django.views.generic.base import TemplateView
 urlpatterns = [
-    path('', include('pages.urls')),
-    path('admin/', admin.site.urls),
-    path('users/', include('users.urls')),
+    path('', include('jukebox_core.pages.urls')),
+    # path('admin/', admin.site.urls),
+    url(settings.ADMIN_URL,admin.site.urls),
+    path('users/', include('jukebox_core.users.urls')),
     path('users/', include('django.contrib.auth.urls')),
-    url(r'^pollsapp/', include('pollsapp.urls')),
+    url(r'^votingapp/', include('jukebox_core.votingapp.urls')),
 ]

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load url_converter %}
+{% block title %}Play{% endblock %}
+
+{% block content %}
+
+    <p>
+        {% if error_msg %}<em>{{ error_msg }}</em><br>{% endif %}
+        {% if songs.all %}
+            {% csrf_token %}
+            
+                {% for choice in songs.all %}
+                    {{ choice.YoutubeLink|youtube_embed_url|safe }}
+                    <b>Votes - {{choice.votes}}</b><br>
+                  <!-- <object style="height: 390px; width: 640px"><param name="movie" value="http://www.youtube.com/v/v1gTI4BOPUw?version=3"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed src="http://www.youtube.com/v/v1gTI4BOPUw?version=3" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="640" height="390"></object> -->
+                        <!-- <iframe width="300" height="200" src="//www.youtube.com/embed/' + videoId '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
+                    <!-- <label >{{ choice.YoutubeLink }}</label><br> -->
+                {% endfor %}
+        {% else %}
+            There are no choices to display.
+        {% endif %}    
+    </p>
+
+{% endblock %}
+
