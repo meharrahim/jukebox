@@ -56,7 +56,8 @@ class Events(APIView):
                     song = Songs(YoutubeLink=url, SongName=str(url))
                     song.save()
                 except:
-                    bot_text = 'Hi  :wave: Youtube link is already there in jukebox.'
+                    pass
+                    # bot_text = 'Hi  :wave: Youtube link is already there in jukebox.'
             if youtube_urls:                
                 Client.api_call(method='chat.postMessage',        #8
                                 channel=channel,                  #
